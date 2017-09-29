@@ -16,6 +16,7 @@ int startTime = 0; // time starts when the first click is captured
 int finishTime = 0; //records the time of the final click
 int hits = 0; //number of successful clicks
 int misses = 0; //number of missed clicks
+int buttonSizeChange = 10;
 Robot robot; //initalized in setup 
 
 int numRepeats = 1; //sets the number of times each button repeats in the test
@@ -79,7 +80,7 @@ void draw()
     drawButton(i); //draw button
 
   fill(255, 0, 0, 200); // set fill color to translucent red
-  ellipse(mouseX, mouseY, 50, 50); //draw user cursor as a circle with a diameter of 20
+  ellipse(mouseX, mouseY, 20, 20); //draw user cursor as a circle with a diameter of 20
 }
 
 void mousePressed() // test to see if hit was in target!
@@ -114,7 +115,7 @@ void mousePressed() // test to see if hit was in target!
   trialNum++; //Increment trial number
 
   //in this example code, we move the mouse back to the middle
-  //robot.mouseMove(width/2, (height)/2); //on click, move cursor to roughly center of window!
+  robot.mouseMove(352, 400); //on click, move cursor to roughly center of window!
 }  
 
 //probably shouldn't have to edit this method
@@ -122,7 +123,14 @@ Rectangle getButtonLocation(int i) //for a given button ID, what is its location
 {
    int x = (i % 4) * (padding + buttonSize) + margin;
    int y = (i / 4) * (padding + buttonSize) + margin;
-   return new Rectangle(x, y, buttonSize, buttonSize);
+   if ((mouseX > (x - buttonSizeChange) && mouseX < (x + buttonSize + buttonSizeChange)) && (mouseY > (y - buttonSizeChange) && mouseY < (y + buttonSize + buttonSizeChange))) // test to see if mouse is near bounds
+   {
+     return new Rectangle(x - (buttonSizeChange/2), y - (buttonSizeChange/2), buttonSize + buttonSizeChange, buttonSize + buttonSizeChange);
+   }
+   else 
+   {
+     return new Rectangle(x, y, buttonSize, buttonSize);
+   }
 }
 
 //you can edit this method to change how buttons appear
@@ -131,11 +139,35 @@ void drawButton(int i)
   Rectangle bounds = getButtonLocation(i);
 
   if (trials.get(trialNum) == i) // see if current button is the target
-    fill(0, 255, 255); // if so, fill cyan
+  {
+    if ((mouseX > bounds.x && mouseX < bounds.x + bounds.width) && (mouseY > bounds.y && mouseY < bounds.y + bounds.height)) // test to see if mouse is within bounds
+    {
+      fill(255, 0, 0); // if hovering over target square, change square to red
+    }
+    else 
+    {
+      fill(0, 255, 255); // if so, fill cyan
+    }
+  }
   else
+  {
     fill(200); // if not, fill gray
+  }
+  
+  if ((trialNum + 1 < 16) && trials.get(trialNum + 1) == i) // see if current button is the NEXT target
+  {
+    fill(255,127,800); // color the next target orange
+  }
+  
+  if ((mouseX > (bounds.x - buttonSizeChange) && mouseX < (bounds.x + bounds.width + buttonSizeChange)) && (mouseY > (bounds.y - buttonSizeChange) && mouseY < (bounds.y + bounds.height + buttonSizeChange))) // test to see if mouse is near bounds
+  {
+    rect(bounds.x - (buttonSizeChange/2), bounds.y - (buttonSizeChange/2), bounds.width + buttonSizeChange, bounds.height + buttonSizeChange); //draw button
+  }
+  else 
+  { 
+   rect(bounds.x, bounds.y, bounds.width, bounds.height); //draw button
+  }
 
-  rect(bounds.x, bounds.y, bounds.width, bounds.height); //draw button
 }
 
 void mouseMoved()
