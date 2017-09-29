@@ -156,7 +156,7 @@ void drawButton(int i)
   
   if ((trialNum + 1 < 16) && trials.get(trialNum + 1) == i) // see if current button is the NEXT target
   {
-    fill(255,127,800); // color the next target orange
+    fill(75,75,75); // color the next target orange
   }
   
   if ((mouseX > (bounds.x - buttonSizeChange) && mouseX < (bounds.x + bounds.width + buttonSizeChange)) && (mouseY > (bounds.y - buttonSizeChange) && mouseY < (bounds.y + bounds.height + buttonSizeChange))) // test to see if mouse is near bounds
