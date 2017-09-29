@@ -20,7 +20,7 @@ int buttonSizeChange = 10;
 Robot robot; //initalized in setup 
 
 int numRepeats = 1; //sets the number of times each button repeats in the test
-
+boolean firstClick = false;
 void setup()
 {
   size(700, 700); // set the size of the window
@@ -81,10 +81,29 @@ void draw()
 
   fill(255, 0, 0, 200); // set fill color to translucent red
   ellipse(mouseX, mouseY, 20, 20); //draw user cursor as a circle with a diameter of 20
+  
+  //iter2: add a timer
+  if(firstClick == true){
+    fill(255);
+    textSize(30);
+    int millis = millis();
+    int sec = millis/1000;
+    String seconds = str(sec);
+    if (sec < 10)
+      seconds = "0"+sec;
+    int min = sec/60;
+    String time = "0"+min+":"+seconds;
+    text(time,550,70);
+    textSize(17);
+    
+    
+  }
 }
 
 void mousePressed() // test to see if hit was in target!
 {
+  
+  firstClick = true;
   if (trialNum >= trials.size()) //if task is over, just return
     return;
 
@@ -123,6 +142,7 @@ Rectangle getButtonLocation(int i) //for a given button ID, what is its location
 {
    int x = (i % 4) * (padding + buttonSize) + margin;
    int y = (i / 4) * (padding + buttonSize) + margin;
+   //iteration 1
    if ((mouseX > (x - buttonSizeChange) && mouseX < (x + buttonSize + buttonSizeChange)) && (mouseY > (y - buttonSizeChange) && mouseY < (y + buttonSize + buttonSizeChange))) // test to see if mouse is near bounds
    {
      return new Rectangle(x - (buttonSizeChange/2), y - (buttonSizeChange/2), buttonSize + buttonSizeChange, buttonSize + buttonSizeChange);
@@ -138,6 +158,7 @@ void drawButton(int i)
 {
   Rectangle bounds = getButtonLocation(i);
 
+  //iteration 1
   if (trials.get(trialNum) == i) // see if current button is the target
   {
     if ((mouseX > bounds.x && mouseX < bounds.x + bounds.width) && (mouseY > bounds.y && mouseY < bounds.y + bounds.height)) // test to see if mouse is within bounds
@@ -187,4 +208,6 @@ void keyPressed()
   //can use the keyboard if you wish
   //https://processing.org/reference/keyTyped_.html
   //https://processing.org/reference/keyCode.html
+  //iteration 2
+  mousePressed();
 }
