@@ -20,7 +20,7 @@ int buttonSizeChange = 10;
 Robot robot; //initalized in setup 
 
 int numRepeats = 1; //sets the number of times each button repeats in the test
-
+boolean firstClick = false;
 void setup()
 {
   size(700, 700); // set the size of the window
@@ -81,10 +81,29 @@ void draw()
 
   fill(255, 0, 0, 200); // set fill color to translucent red
   ellipse(mouseX, mouseY, 20, 20); //draw user cursor as a circle with a diameter of 20
+  
+  //iter2: add a timer
+  if(firstClick == true){
+    fill(255);
+    textSize(30);
+    int millis = millis();
+    int sec = millis/1000;
+    String seconds = str(sec);
+    if (sec < 10)
+      seconds = "0"+sec;
+    int min = sec/60;
+    String time = "0"+min+":"+seconds;
+    text(time,550,70);
+    textSize(17);
+    
+    
+  }
 }
 
 void mousePressed() // test to see if hit was in target!
 {
+  
+  firstClick = true;
   if (trialNum >= trials.size()) //if task is over, just return
     return;
 
