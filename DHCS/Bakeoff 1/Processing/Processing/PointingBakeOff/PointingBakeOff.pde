@@ -123,6 +123,7 @@ Rectangle getButtonLocation(int i) //for a given button ID, what is its location
 {
    int x = (i % 4) * (padding + buttonSize) + margin;
    int y = (i / 4) * (padding + buttonSize) + margin;
+   //iteration 1
    if ((mouseX > (x - buttonSizeChange) && mouseX < (x + buttonSize + buttonSizeChange)) && (mouseY > (y - buttonSizeChange) && mouseY < (y + buttonSize + buttonSizeChange))) // test to see if mouse is near bounds
    {
      return new Rectangle(x - (buttonSizeChange/2), y - (buttonSizeChange/2), buttonSize + buttonSizeChange, buttonSize + buttonSizeChange);
@@ -138,6 +139,7 @@ void drawButton(int i)
 {
   Rectangle bounds = getButtonLocation(i);
 
+  //iteration 1
   if (trials.get(trialNum) == i) // see if current button is the target
   {
     if ((mouseX > bounds.x && mouseX < bounds.x + bounds.width) && (mouseY > bounds.y && mouseY < bounds.y + bounds.height)) // test to see if mouse is within bounds
@@ -187,4 +189,6 @@ void keyPressed()
   //can use the keyboard if you wish
   //https://processing.org/reference/keyTyped_.html
   //https://processing.org/reference/keyCode.html
+  //iteration 2
+  mousePressed();
 }
