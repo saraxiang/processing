@@ -33,17 +33,31 @@ int numRepeats = 1; //sets the number of times each button repeats in the test
 boolean firstClick = false;
 
 void logStuff() {
+  
+  //Check for hit/miss
+  int hit = 0;
+  Rectangle bounds = getButtonLocation(trials.get(trialNum));
+  //check to see if mouse cursor is inside button 
+  if ((mouseX > bounds.x && mouseX < bounds.x + bounds.width) && (mouseY > bounds.y && mouseY < bounds.y + bounds.height)) // test to see if hit was within bounds
+  {
+    //System.out.println("HIT! " + trialNum + " " + (millis() - startTime)); // success
+    hit = 1;
+  } 
+  
+  
+  
+  
   clickNum = clickNum + 1;
   timeClicked = millis()/1000.0;
   //timeClicked = round(s * 1000.0f) / 1000.0f;
   if (clickNum != 0) {
-      Rectangle bounds = getButtonLocation(trials.get(trialNum));
+      
       xPosTarget = bounds.x + bounds.width/2;
       yPosTarget = bounds.y + bounds.height/2;
       
       timePassed = timeClicked - timeStart;
       
-      System.out.println(clickNum + ",SX," + xPosBeg + "," + yPosBeg + "," + xPosTarget + "," + yPosTarget + ",60," + nf(timePassed,0,3));
+      System.out.println(clickNum + ",SX," + xPosBeg + "," + yPosBeg + "," + xPosTarget + "," + yPosTarget + ",60," + nf(timePassed,0,3) + "," + hit);
   }
   timeStart = timeClicked;
   xPosBeg = mouseX;
