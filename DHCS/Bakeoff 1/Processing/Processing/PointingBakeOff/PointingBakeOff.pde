@@ -34,8 +34,8 @@ boolean firstClick = false;
 
 void logStuff() {
   clickNum = clickNum + 1;
-  s = millis()/1000.0;
-  timeClicked = round(s * 1000.0f) / 1000.0f;
+  timeClicked = millis()/1000.0;
+  //timeClicked = round(s * 1000.0f) / 1000.0f;
   if (clickNum != 0) {
       Rectangle bounds = getButtonLocation(trials.get(trialNum));
       xPosTarget = bounds.x + bounds.width/2;
@@ -43,7 +43,7 @@ void logStuff() {
       
       timePassed = timeClicked - timeStart;
       
-      System.out.println(clickNum + ",SX," + xPosBeg + "," + yPosBeg + "," + xPosTarget + "," + yPosTarget + ",60," + timePassed);
+      System.out.println(clickNum + ",SX," + xPosBeg + "," + yPosBeg + "," + xPosTarget + "," + yPosTarget + ",60," + nf(timePassed,0,3));
   }
   timeStart = timeClicked;
   xPosBeg = mouseX;
