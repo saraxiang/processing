@@ -29,7 +29,7 @@ float timeClicked = 0;
 float s;
 float timePassed;
 
-int numRepeats = 1; //sets the number of times each button repeats in the test
+int numRepeats = 20; //sets the number of times each button repeats in the test
 boolean firstClick = false;
 
 void logStuff() {
@@ -43,8 +43,6 @@ void logStuff() {
     //System.out.println("HIT! " + trialNum + " " + (millis() - startTime)); // success
     hit = 1;
   } 
-  
-  
   
   
   clickNum = clickNum + 1;
